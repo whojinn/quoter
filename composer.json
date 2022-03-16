@@ -1,0 +1,41 @@
+{
+    "name": "whojinn/quoter",
+    "authors": [
+        {
+            "name": "whojinn",
+            "email": "github@mail.whojinn.com"
+        }
+    ],
+    "keywords": [
+        "markdown",
+        "extension",
+        "md",
+        "commonmark"
+    ],
+    "description": "League/commonmark extension for more quote.",
+    "license": "Apache-2.0",
+    "require": {
+        "php": "^8.0 || ^8.1",
+        "league/commonmark": "^2.2"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.1",
+        "phpunit/phpunit": "^9.5",
+        "whojinn/sapphire": "^2.2",
+        "whojinn/danraku": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Whojinn\\Quoter\\": "src/"
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "Whojinn\\Test\\": "test/"
+            }
+        },
+        "suggest": {
+            "whojinn/sapphire": "League/commonmark extension for japanese furigana.",
+            "whojinn/danraku": "League/commonmark extension for japanese danraku style."
+        }
+    }
+}
