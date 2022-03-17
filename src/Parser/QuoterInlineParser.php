@@ -31,21 +31,21 @@ class QuoterInlineParser implements InlineParserInterface
     {
         return InlineParserMatch::string('@');
     }
-    
+
     public function parse(InlineParserContext $inlineContext): bool
     {
         $cursor = $inlineContext->getCursor();
-        
+
         // 引用文の冒頭になければfalse
         if ($cursor->getPosition() >= 0) {
             return false;
         }
-        
+
         // blockquoteツリーの内部に居なければfalse
         if (!$inlineContext->getContainer() instanceof BlockQuote) {
             return false;
         }
-        
+
         return true;
     }
 }

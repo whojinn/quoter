@@ -24,7 +24,6 @@ use League\CommonMark\Extension\ConfigurableExtensionInterface;
 
 /**
  * commonmarkの引用文のための拡張機能。
- *
  */
 class QuoterExtension implements ConfigurableExtensionInterface
 {
