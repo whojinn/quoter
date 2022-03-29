@@ -34,15 +34,26 @@ class QuoterInlineParser implements InlineParserInterface
 
     public function parse(InlineParserContext $inlineContext): bool
     {
-        $cursor = $inlineContext->getCursor();
-
-        // 引用文の冒頭になければfalse
-        if ($cursor->getPosition() >= 0) {
+        // blockquoteツリーの内部に居なければfalse
+        if (!$inlineContext->getContainer() instanceof BlockQuote) {
             return false;
         }
 
-        // blockquoteツリーの内部に居なければfalse
-        if (!$inlineContext->getContainer() instanceof BlockQuote) {
+        // cursorとレストア地点を定義
+        $cursor = $inlineContext->getCursor();
+        $restore = $cursor->saveState();
+
+        // 引用文の冒頭になければfalse
+        if (0 === $cursor->getPosition()) {
+            return false;
+        }
+
+        $cite_strings = $cursor->match('/^(.+?)/u');
+
+        // 検索結果がnullだったらレストアしてfalse
+        if (null === $cite_strings) {
+            $cursor->restoreState($restore);
+
             return false;
         }
 
