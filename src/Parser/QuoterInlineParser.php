@@ -24,6 +24,7 @@ use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote;
 use League\CommonMark\Parser\Inline\InlineParserInterface;
 use League\CommonMark\Parser\Inline\InlineParserMatch;
 use League\CommonMark\Parser\InlineParserContext;
+use Whojinn\Quoter\Node\CiteNode;
 
 class QuoterInlineParser implements InlineParserInterface
 {
@@ -48,6 +49,8 @@ class QuoterInlineParser implements InlineParserInterface
             return false;
         }
 
+        // 改行文字まで一気に進む
+        $cursor->advance();
         $cite_strings = $cursor->match('/^(.+?)/u');
 
         // 検索結果がnullだったらレストアしてfalse
@@ -56,6 +59,10 @@ class QuoterInlineParser implements InlineParserInterface
 
             return false;
         }
+
+        $inlineContext->getContainer()->appendChild(new CiteNode($cite_strings));
+
+        $cursor->advance();
 
         return true;
     }
