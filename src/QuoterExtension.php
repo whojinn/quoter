@@ -20,11 +20,27 @@ declare(strict_types=1);
 
 namespace Whojinn\Quoter;
 
+use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ConfigurableExtensionInterface;
+use League\Config\ConfigurationBuilderInterface;
+use Whojinn\Quoter\Node\CiteNode;
+use Whojinn\Quoter\Parser\QuoterInlineParser;
+use Whojinn\Quoter\Renderer\QuoterRenderer;
 
 /**
  * commonmarkの引用文のための拡張機能。
  */
 class QuoterExtension implements ConfigurableExtensionInterface
 {
+    public function configureSchema(ConfigurationBuilderInterface $builder): void
+    {
+    }
+
+    public function register(EnvironmentBuilderInterface $environment): void
+    {
+        $environment
+        ->addInlineParser(new QuoterInlineParser(), 100)
+        ->addRenderer(CiteNode::class, new QuoterRenderer(), 100);
+    }
 }
+// pacstrap /mnt base linux-hardened sudo lvm2 vim zsh git nginx php curl zip unzip openssh intel-ucode
